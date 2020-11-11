@@ -40,19 +40,57 @@ app.post(`/${usersCollection}`,  async (req, res) => {
 
         let cpfFound = false;
         
-        await firebaseHelper.firestore.getDocument(db, usersCollection, newUser.cpf).then(doc => {
+        await firebaseHelper.firestore.getDocument(db, usersCollection, newUser.cpf.toString()).then(doc => {
             if(doc['cpf'] !== undefined)
                 cpfFound = true;
         });
 
         if(cpfFound == false) {
-            await firebaseHelper.firestore.createDocumentWithID(db, usersCollection, newUser.cpf, newUser)
+            await firebaseHelper.firestore.createDocumentWithID(db, usersCollection, newUser.cpf.toString(), newUser)
                 .then(doc => res.status(201).send(Message.successUserCreated + ` - [Nome: ${newUser.firstName} ${newUser.lastName} - CPF: ${newUser.cpf}]`));                
         } else {
             res.status(401).send(`${Message.errorUserNotCreated}. CPF ${newUser.cpf} já cadastrado na base`);
         }
     } catch (error) {
         res.status(400).send(Message.errorUserNotCreated + `. ${error}`);
+    }
+});
+
+app.post(`/${usersCollection}/mass`,  async (req, res) => {
+    let result = "";
+    try {
+        let mass = req.body;
+        
+        for (let index = 0; index < mass.length; index++) {
+            let cpfFound = false;
+
+            const userElement = mass[index];
+            
+            const newUser: User = {
+                firstName: userElement['firstName'],
+                lastName: userElement['lastName'],
+                email: userElement['email'],
+                cpf: userElement['cpf']
+            }
+
+            await firebaseHelper.firestore.getDocument(db, usersCollection, newUser.cpf).then(doc => {
+                if(doc['cpf'] !== undefined)
+                    cpfFound = true;
+            });
+
+            if(cpfFound == false) {
+                await firebaseHelper.firestore.createDocumentWithID(db, usersCollection, newUser.cpf, newUser).then(a => {                    
+                    result += `Usuário com CPF ${newUser.cpf} adicionado com sucesso.\n`;
+                }).catch(error => {
+                    result += `Não foi possível adicionar usuário com CPF ${newUser.cpf}. Erro: ${error}`;
+                });
+            } else {                
+                result += `Não foi possível adicionar usuário com CPF ${newUser.cpf}. Já existe na base.\n`;
+            }
+        }
+        res.status(201).send(Message.sucessAllUsersCreated + `\n\n${result}`);
+    } catch (error) {
+        res.status(400).send(Message.errorAllUsersNotCreated + `. ${error}\n\n${result}`);
     }
 });
 

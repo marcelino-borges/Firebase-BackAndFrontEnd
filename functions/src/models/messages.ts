@@ -4,6 +4,7 @@ export class Message {
     static sucessUserUpdated: string = `Usuário alterado com sucesso`;
     static sucessUserFound: string = `Usuário localizado com sucesso`;
     static sucessAllUsersFound: string = `Usuários localizados com sucesso`;
+    static sucessAllUsersCreated: string = `Usuários criados com sucesso`;
     static sucessUserDeleted: string = `Usuário deletado com sucesso`;
 
     //Error
@@ -11,5 +12,6 @@ export class Message {
     static errorUserNotUpdated: string = `Não foi possível alterar o usuário`;
     static errorUserNotFound: string = `Não foi possível localizar o usuário`;
     static errorAllUsersNotFound: string = `Não foi possível localizar os usuários`;
+    static errorAllUsersNotCreated: string = `Não foi possível criar os usuários`;
     static errorUserDeleted: string = `Não foi possível deletar usuário`;
 }

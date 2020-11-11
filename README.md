@@ -10,18 +10,65 @@ API com CRUD para interfacear funcionalidades para cadastro e armazenamento de u
 * **Endpoint:** 
 	https://us-central1-sistemasdistribuidos-7f031.cloudfunctions.net/webApi/api/v1/users
 
-* **Como usar:** Put into the body of the request a JSON in this layout:
+* **Como usar:** Colocar dentro do [body] da requisição o JSON no seguinte formato:
 ```
-		{
-			"firstName": "Name",
-			"lastName": "Last Name",
-			"email": "mail@hotmail.com",
-			"cpf": "00000000000"
-		}
+[
+	{
+		"firstName": "Name",
+		"lastName": "Last Name",
+		"email": "mail@hotmail.com",
+		"cpf": "00000000000"
+	}
+]
 ```
 
 * **Tipo do método:** POST
 * **Retorno de sucesso:** `Usuário criado com sucesso - [Nome: Nome Usuário - CPF: 00000000000]`.
+* **Retorno de falha:** `Não foi possível criar o usuário. CPF 00000000000 já cadastrado na base` ou `{Mensagem de Exception}`.
+
+### CREATE (EM MASSA)
+* **Endpoint:** 
+	https://us-central1-sistemasdistribuidos-7f031.cloudfunctions.net/webApi/api/v1/users/mass
+
+* **Como usar:** Colocar dentro do [body] da requisição o JSON no seguinte formato (contendo uma massa maior de dados):
+```
+[
+	{
+		"firstName": "Name",
+		"lastName": "Last Name",
+		"email": "mail@hotmail.com",
+		"cpf": "00000000000"
+	},
+	{
+		"firstName": "Name",
+		"lastName": "Last Name",
+		"email": "mail@hotmail.com",
+		"cpf": "00000000000"
+	},
+	{
+		"firstName": "Name",
+		"lastName": "Last Name",
+		"email": "mail@hotmail.com",
+		"cpf": "00000000000"
+	},
+	{
+		"firstName": "Name",
+		"lastName": "Last Name",
+		"email": "mail@hotmail.com",
+		"cpf": "00000000000"
+	},
+	{
+		"firstName": "Name",
+		"lastName": "Last Name",
+		"email": "mail@hotmail.com",
+		"cpf": "00000000000"
+	} 
+	(...)
+]
+```
+
+* **Tipo do método:** POST
+* **Retorno de sucesso:** `Usuários criados com sucesso. {Status de cada tentativa de adicionar usuário}`.
 * **Retorno de falha:** `Não foi possível criar o usuário. CPF 00000000000 já cadastrado na base` ou `{Mensagem de Exception}`.
 
 ### READ (ALL USERS)

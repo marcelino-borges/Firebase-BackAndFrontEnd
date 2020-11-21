@@ -5,6 +5,7 @@ import * as express from 'express';
 import * as bodyParser from "body-parser";
 import { User } from './models/user';
 import { Message } from './models/messages';
+import * as cors from 'cors';
 
 //SETTINGS
 admin.initializeApp(functions.config().firebase);
@@ -14,21 +15,18 @@ const db = admin.firestore();
 const app = express();
 const main = express();
 
+app.use(cors());
+
 main.use('/api/v1', app);
 main.use(bodyParser.json());
 main.use(bodyParser.urlencoded({ extended: false }));
 
-//
-// VARIABLES ------------------------------------------------------------------
-//
-
 const usersCollection = 'users';
 
 //
-// METHODS ---------------------------------------------------------------------
+// METHODS -----
 //
-
-//CREATE
+// CREATE
 app.post(`/${usersCollection}`,  async (req, res) => {
     try {
         const newUser: User = {
@@ -94,8 +92,8 @@ app.post(`/${usersCollection}/mass`,  async (req, res) => {
     }
 });
 
-//READ
-//All users
+// READ
+// All users
 app.get(`/${usersCollection}`, (req, res) => {
     firebaseHelper.firestore
     .backup(db, usersCollection)
@@ -108,7 +106,7 @@ app.get(`/${usersCollection}`, (req, res) => {
     }).catch(error => res.status(400).send(Message.errorAllUsersNotFound + `. Erro: ${error}`));
 });
 
-//1 user
+// 1 user
 app.get(`/${usersCollection}/:userCpf`, (req, res) => {
     firebaseHelper.firestore
     .getDocument(db, usersCollection, req.params.userCpf)
@@ -117,7 +115,7 @@ app.get(`/${usersCollection}/:userCpf`, (req, res) => {
 
 });
 
-//UPDATE
+// UPDATE
 app.patch(`/${usersCollection}/:userCpf`, async (req, res) => {
     try {
         const updatedDoc = await firebaseHelper.firestore.updateDocument(db, usersCollection, req.params.userCpf, req.body);
@@ -127,7 +125,7 @@ app.patch(`/${usersCollection}/:userCpf`, async (req, res) => {
     }
 });
 
-//DELETE
+// DELETE
 app.delete(`/${usersCollection}/:userCpf`, async (req, res) => {
     try {
         const deletedContact = await firebaseHelper.firestore.deleteDocument(db, usersCollection, req.params.userCpf);

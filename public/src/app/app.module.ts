@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { GridUsersComponent } from './components/grid-users/grid-users.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { GridUsersComponent } from './components/grid-users/grid-users.component
     BrowserAnimationsModule,
     MatToolbarModule,
     AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

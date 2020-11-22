@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/models/user';
 
 @Component({
@@ -11,28 +11,43 @@ import { User } from 'src/models/user';
 export class UserFormComponent implements OnInit {
   errorMessage: any;
 
-  constructor(private http: HttpClient) { }
+  createText: string = "Criar";
+  editText: string = "Editar";
+
+  formFuntion: string = "Criar";
+
+  isRegister: boolean;
+
+  constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   url: string = 'https://us-central1-sistemasdistribuidos-7f031.cloudfunctions.net/webApi/api/v1/users';
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.isRegister = params['type'] == "create";
+
+      if (!this.isRegister)
+        this.formFuntion = this.editText;
+    });
+  }
 
   onSubmit(form): void {
+    if (this.isRegister) {
+      this.createUserFromForm(form);
+    } else {
 
+    }
+  }
 
-    const headers = { 'content-type': 'application/json' };
-    // var formJson = JSON.stringify(form.value);
-    console.log(form.value["nome"]);
-
+  private createUserFromForm(form: any) {
     var user: User = {
       firstName: form.value["nome"],
       lastName: form.value["sobrenome"],
       email: form.value["email"],
       cpf: form.value["cpf"]
-    }
+    };
 
     var json = JSON.stringify(user);
-    console.log(json);
 
     this.http.post<any>('https://us-central1-sistemasdistribuidos-7f031.cloudfunctions.net/webApi/api/v1/users',
       user).subscribe({
@@ -43,7 +58,5 @@ export class UserFormComponent implements OnInit {
             console.error('There was an error!', this.errorMessage);
         }
       });
-
   }
-
 }

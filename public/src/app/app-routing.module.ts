@@ -6,8 +6,8 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { GridUsersComponent } from './components/grid-users/grid-users.component';
 
 const routes: Routes = [
-  { path: '', component:  GridUsersComponent},
-  { path: 'userform', component:  UserFormComponent}
+  { path: '', component:  GridUsersComponent },
+  { path: 'userform/:type', component:  UserFormComponent }
 ];
 
 @NgModule({

@@ -99,9 +99,9 @@ app.get(`/${usersCollection}`, (req, res) => {
     .backup(db, usersCollection)
     .then(data => { 
         if(data !== null)
-            res.status(200).send(data)
+            res.status(200).send(data);
         else {
-            res.status(400).send(Message.errorAllUsersNotFound)
+            res.status(400).send(Message.errorAllUsersNotFound);
         }
     }).catch(error => res.status(400).send(Message.errorAllUsersNotFound + `. Erro: ${error}`));
 });
@@ -110,7 +110,13 @@ app.get(`/${usersCollection}`, (req, res) => {
 app.get(`/${usersCollection}/:userCpf`, (req, res) => {
     firebaseHelper.firestore
     .getDocument(db, usersCollection, req.params.userCpf)
-    .then(data => res.status(200).send(data))
+    .then(data =>  {
+        if(data != false)
+            res.status(200).send(data);
+        else
+            res.status(400).send("Falha ao localizar usuario.");
+
+    })
     .catch(error => res.status(400).send(Message.errorUserNotFound + `. Erro: ${error}`));
 
 });

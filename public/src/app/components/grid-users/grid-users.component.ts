@@ -29,6 +29,10 @@ export class GridUsersComponent implements OnInit {
   getUsers() : void {    
     var users = [];
 
+    this.http.post('https://us-central1-sistemasdistribuidos-7f031.cloudfunctions.net/webApi/api/v1/users', { }, { }).subscribe(res => {
+
+    });
+
     this.http.get('https://us-central1-sistemasdistribuidos-7f031.cloudfunctions.net/webApi/api/v1/users').subscribe(res => {
       var usersCollection = res["users"];
       for(var key in usersCollection) {

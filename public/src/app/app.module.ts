@@ -8,12 +8,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { GridUsersComponent } from './components/grid-users/grid-users.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    UserFormComponent
+    UserFormComponent,
+    GridUsersComponent
   ],
   imports: [
     BrowserModule,

@@ -12,14 +12,12 @@ API com CRUD para interfacear funcionalidades para cadastro e armazenamento de u
 
 * **Como usar:** Colocar dentro do [body] da requisição o JSON no seguinte formato:
 ```
-[
-	{
-		"firstName": "Name",
-		"lastName": "Last Name",
-		"email": "mail@hotmail.com",
-		"cpf": "00000000000"
-	}
-]
+{
+	"firstName": "Name",
+	"lastName": "Last Name",
+	"email": "mail@hotmail.com",
+	"cpf": "00000000000"
+}
 ```
 
 * **Tipo do método:** POST
@@ -134,12 +132,14 @@ API com CRUD para interfacear funcionalidades para cadastro e armazenamento de u
 
 * **Como usar:**
 	Enviar requisição trocando o parâmetro “num_cpf” pelo número de CPF do usuário que deseja localizar e passar no body da requisição um JSON no formato:
-	{
-		"firstName": "Nome",
-		"lastName": "Sobrenome",
-		"email": "oemail @hotmail.com",
-		"cpf": "00000000002"
-	}
+```
+{
+	"firstName": "Nome",
+	"lastName": "Sobrenome",
+	"email": "oemail @hotmail.com",
+	"cpf": "00000000002"
+}
+```
 
 * **Tipo do método:** PATCH
 * **Retorno com sucesso:** `Usuário alterado com sucesso`.

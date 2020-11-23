@@ -1,6 +1,6 @@
 # Firebase Project 
 
-Project made to study Firebase as a college task. BackEnd using Firebase Functions and FrontEnd using Firebase Hosting.
+Project made to study Firebase as a college task. Nodejs BackEnd using hosted at Firebase Functions and AngularJS FrontEnd hosted at Firebase Hosting.
 
 ## API DOCUMENTATION (PORTUGUESE)
 

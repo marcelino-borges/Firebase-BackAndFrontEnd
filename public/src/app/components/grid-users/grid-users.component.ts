@@ -48,8 +48,7 @@ export class GridUsersComponent implements OnInit {
 
   editSelectedUser() {
     const jsonUser = this.getSelectedRow();
-    this.router.navigate(['/userform/' + JSON.stringify(jsonUser)]);
-    
+    this.router.navigate(['/userform/' + JSON.stringify(jsonUser)]);    
   }
 
   deleteSelectedUser() {
